@@ -21,6 +21,8 @@ class DataWorker {
   static Future<List<Widget>> getTasks() async {
     List<Widget> Tasks = new List<Widget>();
     Directory p = await getApplicationDocumentsDirectory();
+    bool f = await File(p.path+"/data.json").exists();
+    if (!f) File(p.path+"/data.json").writeAsStringSync("");
     Map<String, dynamic> data = jsonDecode(File("${p.path}/data.json").readAsStringSync());
     data.keys.forEach((e) {
       Tasks.add(WidgetOfTask(data[e]["isChecked"], e, data[e]["date"], data[e]["descr"]));
