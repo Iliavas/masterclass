@@ -12,6 +12,7 @@ class DataWorker {
     getApplicationDocumentsDirectory().then(
       (e) {
         File file = File("${e.path}/data.json");
+        if (!file.existsSync()) file.writeAsStringSync("");
         Map<String, dynamic> data = new Map<String, dynamic>();
         if (file.readAsStringSync().length != 0) data = jsonDecode(file.readAsStringSync());
         data[name] = {"date": date, "isChecked": "false", "description": ""};
